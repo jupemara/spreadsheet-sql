@@ -1,0 +1,36 @@
+{
+  "name": "spreadsheet-sql",
+  "version": "0.1.0",
+  "description": "Get google spreadsheet data by using like SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JumpeiArashi/spreadsheet-sql.git"
+  },
+  "keywords": [
+    "google",
+    "spreadsheet",
+    "sql",
+    "charts",
+    "visualization"
+  ],
+  "author": "JumpeiArashi",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/JumpeiArashi/spreadsheet-sql/issues"
+  },
+  "homepage": "https://github.com/JumpeiArashi/spreadsheet-sql#readme",
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.12",
+    "webpack": "^1.12.15"
+  },
+  "dependencies": {
+    "hellojs": "^1.12.0"
+  }
+}
