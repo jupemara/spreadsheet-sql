@@ -31,6 +31,6 @@
     "webpack": "^1.12.15"
   },
   "dependencies": {
-    "hellojs": "^1.12.0"
+    "node-oauth": "^0.1.3"
   }
 }
