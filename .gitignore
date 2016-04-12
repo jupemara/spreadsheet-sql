@@ -35,3 +35,6 @@ node_modules
 # archives
 dist/
 lib/**/*.js
+
+# typings
+typings/
