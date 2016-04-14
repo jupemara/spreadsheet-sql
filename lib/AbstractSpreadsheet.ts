@@ -5,9 +5,9 @@ export abstract class AbstractSpreadSheet {
   protected worksheetName: string;
   abstract query(query:string): Promise<Object>;
 
-  protected promisifyGoogleRequest(url: string, accessToken?: string): Promise<string>{
+  protected promisifiedGoogleRequest(url: string, accessToken?: string): Promise<string>{
     return new Promise((resolve, reject) => {
-      const params = {
+      let params = {
         url: url
       };
       if (accessToken) {
