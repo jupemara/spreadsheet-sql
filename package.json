@@ -4,7 +4,8 @@
   "description": "Get google spreadsheet data by using like SQL",
   "main": "index.js",
   "scripts": {
-    "test": "typings install && ava"
+    "test": "typings install && npm run build  && ava",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
