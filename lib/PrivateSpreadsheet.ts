@@ -1,6 +1,6 @@
 import * as request from 'request';
 import * as _ from 'lodash';
-import {AbstractSpreadSheet} from './AbstractSpreadSheet';
+import {AbstractSpreadSheet} from './AbstractSpreadsheet';
 import {SpreadsheetResponseWorksheet} from './SpreadsheetResponseInterface';
 import * as utils from './Utils';
 
