@@ -2,7 +2,7 @@
   "name": "spreadsheet-sql",
   "version": false,
   "dependencies": {
-    "lodash": "registry:npm/lodash#4.0.0+20160305082308",
+    "lodash": "registry:npm/lodash#4.0.0+20160412191219",
     "request": "registry:npm/request#2.69.0+20160304121250"
   },
   "ambientDependencies": {
