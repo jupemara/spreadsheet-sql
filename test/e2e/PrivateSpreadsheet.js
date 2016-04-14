@@ -6,7 +6,7 @@ const PrivateSpreadsheet = require('../../dist/index').PrivateSpreadsheet;
 test.beforeEach(t => {
   t.context.spreadsheet = new PrivateSpreadsheet(
     process.env.TEST_SPREADSHEET_KEY,
-    process.env.TEST_WORKSHEET_NAME,
+    'test',
     process.env.GOOGLE_API_OAUTH2_CLIENT_ID,
     process.env.GOOGLE_API_OAUTH2_CLIENT_SECRET,
     process.env.GOOGLE_API_OAUTH2_REDIRECT_URN,
@@ -33,4 +33,20 @@ test('PrivateSpreadsheet.query with query = "SELECT * WHERE A = "null-url-user""
   t.is(result.length, 1);
   t.is(result[0].name, 'null-url-user');
   t.is(result[0].url, null);
+});
+
+test('PrivateSpreadsheet.query when using second worksheet with query = "SELECT * WHERE A = spreadsheet-sql-private001", it returns one result object', async t => {
+  const spreadsheet = new PrivateSpreadsheet(
+    process.env.TEST_SPREADSHEET_KEY,
+    'test002',
+    process.env.GOOGLE_API_OAUTH2_CLIENT_ID,
+    process.env.GOOGLE_API_OAUTH2_CLIENT_SECRET,
+    process.env.GOOGLE_API_OAUTH2_REDIRECT_URN,
+    process.env.GOOGLE_API_OAUTH2_REFRESH_TOKEN
+  );
+  const result = await spreadsheet.query('SELECT * WHERE A = "spreadsheet-sql-private001"');
+  t.is(result.length, 1);
+  t.deepEqual(['full_name', 'full_url', 'e_mail'], Object.keys(result[0]));
+  t.is(result[0].full_name, 'spreadsheet-sql-private001');
+  t.is(result[0].full_url, 'https://spreadsheet-sql-private001.example.com');
 });
