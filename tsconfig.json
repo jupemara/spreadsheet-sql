@@ -6,7 +6,7 @@
         "sourceMap": true
     },
     "files": [
-      "lib/index.ts",
+      "lib/Index.ts",
       "typings/main.d.ts"
     ],
     "exclude": [
