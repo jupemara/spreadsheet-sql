@@ -13,8 +13,8 @@
   ],
   "scripts": {
     "test": "typings install && npm run build && tsc ./lib/Utils.ts ./typings/main.d.ts  && ava",
-    "build": "webpack",
-    "subscribe": "typings install && webpack && tsc -d && npm publish"
+    "build": "typings install && webpack && tsc -d",
+    "subscribe": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
