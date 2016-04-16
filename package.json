@@ -1,6 +1,6 @@
 {
   "name": "spreadsheet-sql",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Get google spreadsheet data by using like SQL",
   "main": "./dist/index.js",
   "typings": "./lib/index.d.ts",
@@ -13,8 +13,8 @@
   ],
   "scripts": {
     "test": "typings install && npm run build && tsc ./lib/Utils.ts ./typings/main.d.ts  && ava",
-    "build": "webpack",
-    "subscribe": "typings install && webpack && tsc -d && npm publish"
+    "build": "typings install && webpack && tsc -d",
+    "subscribe": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
