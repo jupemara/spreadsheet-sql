@@ -1,4 +1,5 @@
 import * as request from 'request';
+import {Promise} from 'es6-promise';
 
 export abstract class AbstractSpreadSheet {
   protected spreadsheetKey: string;
