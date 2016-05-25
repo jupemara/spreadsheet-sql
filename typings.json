@@ -1,6 +1,7 @@
 {
   "name": "spreadsheet-sql",
   "version": false,
+  "main": "lib/Index.d.ts",
   "dependencies": {
     "es6-promise": "registry:npm/es6-promise#3.0.0+20160211003958",
     "lodash": "registry:npm/lodash#4.0.0+20160412191219",
