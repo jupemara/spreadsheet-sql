@@ -37,7 +37,7 @@
     "ava": "^0.14.0",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.9",
-    "typings": "^0.7.12",
+    "typings": "^1.0.4",
     "webpack": "^1.12.15"
   },
   "dependencies": {

@@ -6,7 +6,7 @@
     },
     "files": [
       "lib/Index.ts",
-      "typings/main.d.ts"
+      "typings/index.d.ts"
     ],
     "exclude": [
         "node_modules"
