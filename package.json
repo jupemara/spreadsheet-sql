@@ -3,6 +3,7 @@
   "version": "0.1.10",
   "description": "Get google spreadsheet data by using like SQL",
   "main": "./dist/index.js",
+  "typings": "./lib/Index.d.ts",
   "files": [
     "dist/index.js",
     "lib/**/*.d.ts",
