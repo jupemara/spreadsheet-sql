@@ -12,7 +12,7 @@
     "package.json"
   ],
   "scripts": {
-    "test": "typings install && npm run build && tsc ./lib/Utils.ts ./typings/main.d.ts  && ava",
+    "test": "typings install && npm run build && tsc ./lib/Utils.ts ./typings/index.d.ts  && ava",
     "build": "typings install && webpack && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
