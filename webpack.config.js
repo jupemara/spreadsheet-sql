@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
   target: 'node',
-  externals: /^(?!^\.\/)/,
+  externals: /^(?![.]+\/)/,
   context: path.join(__dirname, 'lib'),
   entry: './Index.ts',
   output: {
@@ -13,12 +13,13 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', 'webpack.js', '.ts']
+    extensions: ['.ts']
   },
   module: {
-    loaders: [{
-      test: /\.ts$/,
-      loader: 'ts-loader'
+    rules: [{
+      use: [{
+        loader: 'ts-loader'
+      }]
     }]
   }
 };

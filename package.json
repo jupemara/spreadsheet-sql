@@ -35,12 +35,12 @@
     "@types/lodash": "^4.14.81",
     "@types/request": "^2.0.7",
     "ava": "^0.14.0",
-    "ts-loader": "^0.8.2",
-    "typescript": "^1.8.9",
-    "webpack": "^1.12.15"
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1"
   },
   "dependencies": {
-    "googleapis": "^4.0.0",
+    "googleapis": "^22.2.0",
     "lodash": "^4.17.4",
     "request": "^2.83.0"
   }
