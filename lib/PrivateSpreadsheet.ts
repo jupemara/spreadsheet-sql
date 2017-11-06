@@ -1,8 +1,5 @@
-import * as _ from 'lodash';
-import {Promise} from 'es6-promise';
-import * as request from 'request';
+import * as lodash from 'lodash';
 import {AbstractSpreadSheet} from './AbstractSpreadsheet';
-import {SpreadsheetResponseWorksheet} from './SpreadsheetResponseInterface';
 import * as utils from './Utils';
 
 //TODO: not declare google api node client d.ts. See https://github.com/google/google-api-nodejs-client/issues/503 .
@@ -50,8 +47,8 @@ export class PrivateSpreadsheet extends AbstractSpreadSheet{
   public getGvizUrl(): Promise<any> {
     return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/feeds/worksheets/${this.spreadsheetKey}/private/basic?alt=json`, this.accessToken)
       .then(body => {
-        return _.find(
-          _.find(JSON.parse(body)['feed']['entry'], worksheet => {
+        return lodash.find(
+          lodash.find(JSON.parse(body)['feed']['entry'], worksheet => {
             return worksheet['title']['$t'] === this.worksheetName;
           })['link'], link => {
             return /gviz/.test(link['href'])

@@ -36,6 +36,3 @@ node_modules
 dist/
 lib/**/*.js
 lib/**/*.d.ts
-
-# typings
-typings/

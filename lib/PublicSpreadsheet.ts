@@ -1,8 +1,4 @@
-import * as _ from 'lodash';
-import {Promise} from 'es6-promise';
-import * as request from 'request';
 import {AbstractSpreadSheet} from './AbstractSpreadsheet';
-import {SpreadsheetResponseWorksheet} from './SpreadsheetResponseInterface';
 import * as utils from './Utils';
 
 export class PublicSpreadsheet extends AbstractSpreadSheet{

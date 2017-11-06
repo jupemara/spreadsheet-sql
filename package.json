@@ -1,19 +1,17 @@
 {
   "name": "spreadsheet-sql",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "description": "Get google spreadsheet data by using like SQL",
   "main": "./dist/index.js",
-  "typings": "./lib/Index.d.ts",
   "files": [
     "dist/index.js",
     "lib/**/*.d.ts",
-    "typings.json",
     "README.md",
     "package.json"
   ],
   "scripts": {
-    "test": "typings install && npm run build && tsc ./lib/Utils.ts ./typings/index.d.ts  && ava",
-    "build": "typings install && webpack && tsc -d",
+    "test": "npm run build && tsc ./lib/Utils.ts && ava",
+    "build": "webpack && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
   "repository": {
@@ -34,16 +32,16 @@
   },
   "homepage": "https://github.com/JumpeiArashi/spreadsheet-sql#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.81",
+    "@types/request": "^2.0.7",
     "ava": "^0.14.0",
-    "ts-loader": "^0.8.2",
-    "typescript": "^1.8.9",
-    "typings": "^1.0.4",
-    "webpack": "^1.12.15"
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1"
   },
   "dependencies": {
-    "es6-promise": "^3.2.1",
-    "googleapis": "^4.0.0",
-    "lodash": "^4.10.0",
-    "request": "^2.71.0"
+    "googleapis": "^22.2.0",
+    "lodash": "^4.17.4",
+    "request": "^2.83.0"
   }
 }

@@ -27,12 +27,12 @@ Example
 ```javascript
 var PublicSpreadsheet = require('spreadsheet-sql').PublicSpreadsheet;
 
-//first argument is SpreadsheetKey, second argument is worksheet name.
-//spreadsheet key is included spreadsheet URL.
-//e.g: "https://docs.google.com/spreadsheets/d/SPREADSHEET_KEY"
+// first argument is SpreadsheetKey, second argument is worksheet name.
+// spreadsheet key is included spreadsheet URL.
+// e.g: "https://docs.google.com/spreadsheets/d/SPREADSHEET_KEY"
 var spreadsheet = new PublicSpreadsheet('SPREADSHEET_KEY', 'WORKSHEET_NAME');
-spreadsheet.query('SELECT * WHERE A = "user1"')
-  .then(function(result) {
+return spreadsheet.query('SELECT * WHERE A = "user1"')
+  .then(result => {
     console.log(result);
   });
 ```
@@ -73,8 +73,8 @@ var spreadsheet = new PrivateSpreadsheet(
   'REDIRECT_URN',
   'REFRESH_TOKEN'
 );
-spreadsheet.query('SELECT * WHERE A = "user1"')
-  .then(function(result) {
+return spreadsheet.query('SELECT * WHERE A = "user1"')
+  .then(result => {
     console.log(result);
   });
 ```
@@ -106,30 +106,6 @@ We use [webpack](https://webpack.github.io) + [ts-loader](https://github.com/Typ
 
 ```bash
 npm run build
-```
-
-Known Issues
-----
-
-### For TypeScript user
-
-Building your project using "spreadsheet-sql", you catch TS2304 error.
-`error TS2304: Cannot find name 'Promise'.`
-This cause is that yet ts-loader can't concat dependent declaration file.
-
-For resolving, we have two ways.
-
-1.directly install declaration file.
-
-```bash
-typings install es6-promise --ambient
-```
-
-2.use typings.json of spreadsheet-sql(this repository)
-
-```bash
-cp node_modules/spreadsheet-sql/typings.json REPOSITORY_ROOT
-$(npm bin)/typings install
 ```
 
 License
