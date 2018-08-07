@@ -1,6 +1,6 @@
 {
   "name": "spreadsheet-sql",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Get google spreadsheet data by using like SQL",
   "main": "./dist/index.js",
   "types": "./lib/Index.d.ts",
@@ -8,7 +8,8 @@
     "dist/index.js",
     "lib/**/*.d.ts",
     "README.md",
-    "package.json"
+    "package.json",
+    "package-lock.json"
   ],
   "scripts": {
     "test": "npm run build && tsc ./lib/Utils.ts && ava",
@@ -37,9 +38,9 @@
     "@types/request": "^2.47.1",
     "ava": "^0.25.0",
     "googleapis": "^32.0.0",
-    "ts-loader": "^3.1.1",
-    "typescript": "^2.6.1",
-    "webpack": "^3.8.1"
+    "ts-loader": "^3.5.0",
+    "typescript": "^3.0.1",
+    "webpack": "^3.12.0"
   },
   "dependencies": {
     "lodash": "^4.17.10",
