@@ -3,7 +3,7 @@ import {AbstractSpreadSheet} from './AbstractSpreadsheet';
 import * as utils from './Utils';
 
 //TODO: not declare google api node client d.ts. See https://github.com/google/google-api-nodejs-client/issues/503 .
-const OAuth2 = require('googleapis').auth.OAuth2;
+const OAuth2 = require('googleapis').google.auth.OAuth2;
 
 export class PrivateSpreadsheet extends AbstractSpreadSheet{
 
