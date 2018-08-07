@@ -1,9 +1,9 @@
 version: 2
 jobs:
   build:
-    working_directory: /opt/spreadsheet-sql
     docker:
-      - image: node:8.9.0
+      - image: node:8.11.3
+    working_directory: /opt/spreadsheet-sql
     steps:
       - checkout
       - run:
@@ -12,3 +12,30 @@ jobs:
       - run:
           name: npm test
           command: npm test
+  deploy:
+    docker:
+      - image: node:8.11.3
+    working_directory: /opt/spreadsheet-sql
+    steps:
+      - checkout
+      - run:
+          name: npm install
+          command: npm install
+      - run:
+          name: publish to npm registry
+          command: |
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ${HOME}/.npmrc
+            npm run subscribe
+workflows:
+  version: 2
+  build-and-npm-publish:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v[\d].*/
+            branches:
+              ignore: /.*/
