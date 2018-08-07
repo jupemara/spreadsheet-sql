@@ -30,7 +30,10 @@ workflows:
   version: 2
   build-and-npm-publish:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /.*/
       - deploy:
           requires:
             - build
