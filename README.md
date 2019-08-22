@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/JumpeiArashi/spreadsheet-sql.svg?style=svg)](https://circleci.com/gh/JumpeiArashi/spreadsheet-sql)
+[![CircleCI](https://circleci.com/gh/jupemara/spreadsheet-sql.svg?style=svg)](https://circleci.com/gh/jupemara/spreadsheet-sql)
 
 spreadsheet-sql
 ====

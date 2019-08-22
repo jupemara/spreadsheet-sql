@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "test": "npm run build && tsc ./lib/Utils.ts && ava",
-    "build": "webpack && tsc -d",
+    "build": "webpack --mode production && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
   "repository": {
@@ -34,16 +34,17 @@
   },
   "homepage": "https://github.com/JumpeiArashi/spreadsheet-sql#readme",
   "devDependencies": {
-    "@types/lodash": "^4.14.116",
-    "@types/request": "^2.47.1",
-    "ava": "^0.25.0",
-    "ts-loader": "^3.5.0",
-    "typescript": "^3.0.1",
-    "webpack": "^3.12.0"
+    "@types/lodash": "^4.14.137",
+    "@types/request": "^2.48.2",
+    "ava": "^2.3.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   },
   "dependencies": {
-    "googleapis": "^32.0.0",
-    "lodash": "^4.17.10",
-    "request": "^2.87.0"
+    "googleapis": "^42.0.0",
+    "lodash": "^4.17.15",
+    "request": "^2.88.0"
   }
 }
