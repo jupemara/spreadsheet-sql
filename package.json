@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.137",
     "@types/request": "^2.48.2",
-    "ava": "^0.25.0",
+    "ava": "^2.3.0",
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
