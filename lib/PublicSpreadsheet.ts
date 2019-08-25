@@ -1,20 +1,26 @@
-import {AbstractSpreadSheet} from './AbstractSpreadsheet';
 import * as utils from './Utils';
+import axios from 'axios';
+import * as querystring from 'querystring';
 
-export class PublicSpreadsheet extends AbstractSpreadSheet{
+export class PublicSpreadsheet {
 
-  constructor(spreadsheetKey: string, worksheetName: string) {
-    super();
-    this.spreadsheetKey = spreadsheetKey;
-    this.worksheetName = worksheetName;
-  }
+  constructor(
+    private readonly spreadsheetKey: string,
+    private readonly worksheetName: string
+  ) {}
 
-  query(query: string) {
-    query = encodeURIComponent(query);
-
-    return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/tq?headers=1&key=${this.spreadsheetKey}&sheet=${this.worksheetName}&tq=${query}&tqx=out:csv`)
-      .then((body) => {
-        return utils.csv2json(body);
-      });
+  public query(q: string) {
+    const qs = {
+      headers: '1',
+      key: this.spreadsheetKey,
+      sheet: this.worksheetName,
+      tq: q,
+      tqx: 'out:csv',
+    };
+    return axios.get(
+      `https://spreadsheets.google.com/tq?${querystring.stringify(qs)}`
+    ).then(res =>　{
+      return utils.csv2json(res.data);
+    });
   }
 }
