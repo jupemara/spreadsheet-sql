@@ -7,7 +7,7 @@ test.beforeEach(t => {
   t.context.spreadsheet = new PublicSpreadsheet('14aayP76anHyRJyeVcTBJMTvqwyPeWZFFBpGffhko9HU', 'test');
 });
 
-test('PublicSpreadsheet.query with query = "SELECT * WHERE A = "spreadsheet-sql-public001"", it returns one result object', async t => {
+test('PublicSpreadsheet.query with query = "SELECT * WHERE A = "spreadsheet-sql-public001", it returns one result', async t => {
   const result = await t.context.spreadsheet.query('SELECT * WHERE A = "spreadsheet-sql-public001"');
   t.is(result.length, 1);
   t.is(result[0].name, 'spreadsheet-sql-public001');
