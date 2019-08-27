@@ -11,7 +11,7 @@ export abstract class AbstractSpreadSheet {
         url: url
       };
       if (accessToken) {
-        params['headers'] = {Authorization: `Bearer ${accessToken}`}
+        params['headers'] = {Authorization: accessToken}
       }
 
       request(params, (err, res, body) => {

@@ -29,23 +29,15 @@ export class PrivateSpreadsheet extends AbstractSpreadSheet{
     })
   }
 
-  public refreshAccessToken(): Promise<Object> {
-    return new Promise((resolve, reject) => {
-      this.OAuthClient.refreshAccessToken((err, tokens) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        this.OAuthClient.setCredentials(tokens);
-        this.accessToken = tokens.access_token;
-        resolve();
-      });
-    })
+  // TODO: use string as value object
+  public getAccessToken(): Promise<string> {
+    return this.OAuthClient.getRequestHeaders().then(headers => {
+      return headers.Authorization;
+    });
   }
 
-  public getGvizUrl(): Promise<any> {
-    return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/feeds/worksheets/${this.spreadsheetKey}/private/basic?alt=json`, this.accessToken)
+  public getGvizUrl(accessToken: string): Promise<any> {
+    return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/feeds/worksheets/${this.spreadsheetKey}/private/basic?alt=json`, accessToken)
       .then(body => {
         return lodash.find(
           lodash.find(JSON.parse(body)['feed']['entry'], worksheet => {
@@ -56,12 +48,14 @@ export class PrivateSpreadsheet extends AbstractSpreadSheet{
       });
   }
   query(query) {
-    return this.refreshAccessToken().then(
-      () => {
-        return this.getGvizUrl()
+    let token: string;
+    return this.getAccessToken().then(
+      accessToken => {
+        token = accessToken;
+        return this.getGvizUrl(accessToken)
       }).then(gvizUrl => {
         query = encodeURIComponent(query);
-        return this.promisifiedGoogleRequest(`${gvizUrl}&headers=1&tq=${query}&tqx=out:csv`, this.accessToken)
+        return this.promisifiedGoogleRequest(`${gvizUrl}&headers=1&tq=${query}&tqx=out:csv`, token)
       }).then(csv => {
         return utils.csv2json(csv);
       });
