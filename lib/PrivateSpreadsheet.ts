@@ -1,8 +1,4 @@
-import * as lodash from 'lodash';
-import {AbstractSpreadSheet} from './AbstractSpreadsheet';
 import * as utils from './Utils';
-import axios from 'axios';
-import * as querystring from 'querystring';
 
 //TODO: not declare google api node client d.ts. See https://github.com/google/google-api-nodejs-client/issues/503 .
 const OAuth2 = require('googleapis').google.auth.OAuth2;
