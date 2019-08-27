@@ -1,63 +1,46 @@
 import * as lodash from 'lodash';
 import {AbstractSpreadSheet} from './AbstractSpreadsheet';
 import * as utils from './Utils';
+import axios from 'axios';
+import * as querystring from 'querystring';
 
 //TODO: not declare google api node client d.ts. See https://github.com/google/google-api-nodejs-client/issues/503 .
 const OAuth2 = require('googleapis').google.auth.OAuth2;
 
-export class PrivateSpreadsheet extends AbstractSpreadSheet{
+export class PrivateSpreadsheet{
 
-  private clientId: string;
-  private clientSecret: string;
-  private redirectUrn: string;
-  private refreshToken: string;
-  private OAuthClient: any;
-  private accessToken: string;
+  private readonly oauthClient: any;
 
-  constructor(spreadsheetKey: string, worksheetName: string, clientId:string, clientSecret:string, redirectUrn:string, refreshToken:string) {
-    super();
-    this.spreadsheetKey = spreadsheetKey;
-    this.worksheetName = worksheetName;
-    this.clientId = clientId;
-    this.clientSecret = clientSecret;
-    this.redirectUrn = redirectUrn;
-    this.refreshToken = refreshToken;
-
-    this.OAuthClient = new OAuth2(this.clientId, this.clientSecret, this.redirectUrn);
-    this.OAuthClient.setCredentials({
-      refresh_token: this.refreshToken
-    })
+  constructor(
+    private readonly spreadsheetKey: string,
+    private readonly worksheetName: string,
+    private readonly clientId:string,
+    private readonly clientSecret:string,
+    private readonly redirectUrn:string,
+    private readonly refreshToken?:string
+  ) {
+    this.oauthClient = new OAuth2(this.clientId, this.clientSecret, this.redirectUrn);
+    if (!!this.refreshToken) {
+      this.oauthClient.setCredentials({
+        refresh_token: this.refreshToken
+      });
+    }
   }
 
-  // TODO: use string as value object
-  public getAccessToken(): Promise<string> {
-    return this.OAuthClient.getRequestHeaders().then(headers => {
-      return headers.Authorization;
+  public query(q: string) {
+    const qs = {
+      headers: 1,
+      key: this.spreadsheetKey,
+      sheet: this.worksheetName,
+      tq: q,
+      tqx: 'out:csv'
+    };
+    return this.oauthClient.request({
+        method: 'GET',
+        url: `https://spreadsheets.google.com/tq`,
+        params: qs
+    }).then(res => {
+      return utils.csv2json(res.data);
     });
-  }
-
-  public getGvizUrl(accessToken: string): Promise<any> {
-    return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/feeds/worksheets/${this.spreadsheetKey}/private/basic?alt=json`, accessToken)
-      .then(body => {
-        return lodash.find(
-          lodash.find(JSON.parse(body)['feed']['entry'], worksheet => {
-            return worksheet['title']['$t'] === this.worksheetName;
-          })['link'], link => {
-            return /gviz/.test(link['href'])
-          })['href'];
-      });
-  }
-  query(query) {
-    let token: string;
-    return this.getAccessToken().then(
-      accessToken => {
-        token = accessToken;
-        return this.getGvizUrl(accessToken)
-      }).then(gvizUrl => {
-        query = encodeURIComponent(query);
-        return this.promisifiedGoogleRequest(`${gvizUrl}&headers=1&tq=${query}&tqx=out:csv`, token)
-      }).then(csv => {
-        return utils.csv2json(csv);
-      });
   }
 }
