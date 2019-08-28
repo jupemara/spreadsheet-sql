@@ -1,5 +1,6 @@
 export class Csv {
   constructor(private readonly raw: string) {}
+
   public toJson(): {[k: string]: string | number}[] {
     const headers = this.headers();
     return this.lows().map(low => {
@@ -15,11 +16,13 @@ export class Csv {
       return record;
     });
   }
+
   private headers(): string[] {
     return this.raw.split('\n')[0].split(',').map(header => {
       return this.trimDoubleQuote(header);
     });
   }
+
   private lows(): string[][] {
     const [, ...lines] = this.raw.split('\n');
     if (!lines.length) {
@@ -30,6 +33,7 @@ export class Csv {
       return columns.map(column => this.trimDoubleQuote(column));
     });
   }
+
   private fillWithNull(array: string[], length: number): string[] {
     if (array.length >= length) {
       return array;
@@ -38,6 +42,7 @@ export class Csv {
     array.forEach((v, idx) => filled[idx] = v);
     return filled;
   }
+
   private trimDoubleQuote(raw: string): string {
     let trimmed = raw;
     if (!raw.startsWith('"') || !raw.endsWith('"')) {

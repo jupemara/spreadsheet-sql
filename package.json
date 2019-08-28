@@ -12,7 +12,7 @@
     "package-lock.json"
   ],
   "scripts": {
-    "test": "npm run build && tsc ./lib/Utils.ts && ava",
+    "test": "npm run build && ava",
     "build": "webpack --mode production && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
