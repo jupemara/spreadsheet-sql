@@ -1,6 +1,7 @@
+import {Record} from './Record';
 import * as lodash from 'lodash';
 
-export function csv2json(csv:string): {[k: string]: string | number}[] {
+export function csv2json(csv:string): Record[] {
   const headers = csv.split('\n')[0].split(',').map(header => {return lodash.trim(header, '"')});
   const lines = lodash.tail(csv.split('\n'));
   return lines.map(line => {

@@ -1,25 +1,32 @@
 import {BaseSpreadsheet} from './BaseSpreadSheet';
-
-//TODO: not declare google api node client d.ts. See https://github.com/google/google-api-nodejs-client/issues/503 .
-const OAuth2 = require('googleapis').google.auth.OAuth2;
+import {OAuth2Client} from 'google-auth-library';
 
 export class PrivateSpreadsheet extends BaseSpreadsheet {
+
+  private readonly oauthClient: OAuth2Client;
 
   constructor(
     spreadsheetKey: string,
     worksheetName: string,
-    private readonly clientId:string,
-    private readonly clientSecret:string,
-    private readonly redirectUrn:string,
-    private readonly refreshToken?:string
+    private readonly clientId: string,
+    private readonly clientSecret: string,
+    private readonly redirectUrn: string,
+    private readonly refreshToken?: string
   ) {
     super(spreadsheetKey, worksheetName);
-    const client = new OAuth2(this.clientId, this.clientSecret, this.redirectUrn);
+    const oauthClient = new OAuth2Client(this.clientId, this.clientSecret, this.redirectUrn);
     if (!!this.refreshToken) {
-      client.setCredentials({
+      oauthClient.setCredentials({
         refresh_token: this.refreshToken
       });
     }
-    this.httpAgent = client;
+    this.oauthClient = oauthClient;
+  }
+
+  protected request(
+    url: string,
+    params: {[k: string]: string | number}
+  ): Promise<{data: any}> {
+    return this.oauthClient.request({url, params});
   }
 }

@@ -1,3 +1,4 @@
+import {AxiosRequestConfig} from 'axios';
 import {BaseSpreadsheet} from './BaseSpreadSheet';
 import axios from 'axios';
 
@@ -8,6 +9,12 @@ export class PublicSpreadsheet extends BaseSpreadsheet {
     worksheetName: string
   ) {
     super(spreadsheetKey, worksheetName);
-    this.httpAgent = axios;
+  }
+
+  protected request(
+    url: string,
+    params: {[k: string]: string | number}
+  ): Promise<{data: any}> {
+    return axios.request({url, params});
   }
 }
