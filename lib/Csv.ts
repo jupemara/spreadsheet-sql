@@ -18,9 +18,12 @@ export class Csv {
   }
 
   private headers(): string[] {
-    return this.raw.split('\n')[0].split(',').map(header => {
-      return this.trimDoubleQuote(header);
-    });
+    return this.raw
+      .split('\n')[0]
+      .split(',')
+      .map(header => {
+        return this.trimDoubleQuote(header);
+      });
   }
 
   private lows(): string[][] {
@@ -39,7 +42,7 @@ export class Csv {
       return array;
     }
     let filled = new Array(length).fill(null);
-    array.forEach((v, idx) => filled[idx] = v);
+    array.forEach((v, idx) => (filled[idx] = v));
     return filled;
   }
 

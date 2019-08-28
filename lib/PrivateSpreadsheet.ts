@@ -2,7 +2,6 @@ import {BaseSpreadsheet} from './BaseSpreadSheet';
 import {OAuth2Client} from 'google-auth-library';
 
 export class PrivateSpreadsheet extends BaseSpreadsheet {
-
   private readonly oauthClient: OAuth2Client;
 
   constructor(
@@ -14,10 +13,14 @@ export class PrivateSpreadsheet extends BaseSpreadsheet {
     private readonly refreshToken?: string
   ) {
     super(spreadsheetKey, worksheetName);
-    const oauthClient = new OAuth2Client(this.clientId, this.clientSecret, this.redirectUrn);
+    const oauthClient = new OAuth2Client(
+      this.clientId,
+      this.clientSecret,
+      this.redirectUrn
+    );
     if (!!this.refreshToken) {
       oauthClient.setCredentials({
-        refresh_token: this.refreshToken
+        refresh_token: this.refreshToken,
       });
     }
     this.oauthClient = oauthClient;

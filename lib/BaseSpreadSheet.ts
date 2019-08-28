@@ -10,11 +10,7 @@ export abstract class BaseSpreadsheet {
   public query(q: string): Promise<Record[]> {
     return this.request(
       'https://spreadsheets.google.com/tq',
-      this.buildRequestParameters(
-        this.spreadsheetKey,
-        this.worksheetName,
-        q
-      )
+      this.buildRequestParameters(this.spreadsheetKey, this.worksheetName, q)
     ).then(res => {
       return new Csv(res.data).toJson();
     });
@@ -23,7 +19,7 @@ export abstract class BaseSpreadsheet {
   protected abstract request(
     url: string,
     params: {[k: string]: string | number}
-  ): Promise<{data: any}>
+  ): Promise<{data: any}>;
 
   private buildRequestParameters(
     spreadsheetKey: string,
@@ -35,7 +31,7 @@ export abstract class BaseSpreadsheet {
       key: spreadsheetKey,
       sheet: worksheetName,
       tq: query,
-      tqx: 'out:csv'
+      tqx: 'out:csv',
     };
   }
 }
