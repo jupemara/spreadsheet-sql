@@ -1,7 +1,5 @@
-'use strict';
-
-const test = require('ava');
-const csv = require('../../lib/Csv').Csv;
+import {Csv} from '../../lib/Csv';
+import test from 'ava';
 
 test('Csv.toJson when number of columns is same with number of headers', t => {
   const input = `"a","b","c"
@@ -11,7 +9,7 @@ test('Csv.toJson when number of columns is same with number of headers', t => {
     c: '3'
   }];
   t.deepEqual(
-    new csv(input).toJson(),
+    new Csv(input).toJson(),
     expected
   );
 });
@@ -22,7 +20,7 @@ test('Csv.toJson when number of columns is more than number of headers, it ignor
     a: '1'
   }];
   t.deepEqual(
-    new csv(input).toJson(),
+    new Csv(input).toJson(),
     expected
   );
 });
@@ -34,7 +32,7 @@ test('Csv.toJson when number of columns is less than number of headers, it fills
     b: null 
   }];
   t.deepEqual(
-    new csv(input).toJson(),
+    new Csv(input).toJson(),
     expected
   );
 });
@@ -48,7 +46,7 @@ test('Csv.toJson when each property doesn\'t quoted by ", it returns directly', 
     d: '4'
   }];
   t.deepEqual(
-    new csv(input).toJson(),
+    new Csv(input).toJson(),
     expected
   );
 });
@@ -62,7 +60,7 @@ test('Csv.toJson when some of the columns include " as value it doesn\'t trim "'
     d: '"abc'
   }];
   t.deepEqual(
-    new csv(input).toJson(),
+    new Csv(input).toJson(),
     expected
   );
 });
