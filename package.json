@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "test": "npm run build && ava",
+    "lint": "prettier \"{lib,test}/**/*.ts\" --check",
+    "lint+write": "prettier \"{lib,test}/**/*.ts\" --write",
     "build": "webpack --mode production && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
