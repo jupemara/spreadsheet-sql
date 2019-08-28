@@ -1,20 +1,15 @@
-import {AbstractSpreadSheet} from './AbstractSpreadsheet';
-import * as utils from './Utils';
+import {BaseSpreadsheet} from './BaseSpreadSheet';
+import axios from 'axios';
 
-export class PublicSpreadsheet extends AbstractSpreadSheet{
-
+export class PublicSpreadsheet extends BaseSpreadsheet {
   constructor(spreadsheetKey: string, worksheetName: string) {
-    super();
-    this.spreadsheetKey = spreadsheetKey;
-    this.worksheetName = worksheetName;
+    super(spreadsheetKey, worksheetName);
   }
 
-  query(query: string) {
-    query = encodeURIComponent(query);
-
-    return this.promisifiedGoogleRequest(`https://spreadsheets.google.com/tq?headers=1&key=${this.spreadsheetKey}&sheet=${this.worksheetName}&tq=${query}&tqx=out:csv`)
-      .then((body) => {
-        return utils.csv2json(body);
-      });
+  protected request(
+    url: string,
+    params: {[k: string]: string | number}
+  ): Promise<{data: any}> {
+    return axios.request({url, params});
   }
 }

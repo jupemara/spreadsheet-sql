@@ -3,23 +3,28 @@
 spreadsheet-sql
 ====
 
-Get spreadsheet data by using like SQL.
+Getting Google spreadsheet data by using like SQL.
 
 Outline
 ----
 
 This node module can extract user data from [google spreadsheet](https://docs.google.com/spreadsheets/u/0/).
 And you can use SQL like syntax. e.g: `SELECT * WHERE A = "user1"`.
-Of course, you can extract data from private spreadsheet.
+Of course we support private spreadsheet data also.
 
 Install
 ----
 
 ```bash
-npm install spreadsheet-sql
+$ npm install spreadsheet-sql
 ```
 
-Example
+Google Spreadsheet Query Language Specification
+----
+
+You can use the syntax like SQL according to [google spreadsheet query language specification](https://developers.google.com/chart/interactive/docs/querylanguage).
+
+Examples
 ----
 
 ### Public Spreadsheet
@@ -27,7 +32,7 @@ Example
 ```javascript
 var PublicSpreadsheet = require('spreadsheet-sql').PublicSpreadsheet;
 
-// first argument is SpreadsheetKey, second argument is worksheet name.
+// first argument is spreadsheet key, second argument is worksheet name.
 // spreadsheet key is included spreadsheet URL.
 // e.g: "https://docs.google.com/spreadsheets/d/SPREADSHEET_KEY"
 var spreadsheet = new PublicSpreadsheet('SPREADSHEET_KEY', 'WORKSHEET_NAME');
@@ -49,18 +54,16 @@ Executing above snippet, you can get json format result.
 
 ### Private Spreadsheet
 
-prepare: For private spreadsheet, you need to get google OAuth2 credentials.
-Please see [google OAuth2](https://console.developers.google.com/apis/credentials) page for detail.
-After authoring google OAuth2, you have 4 credential informations.
+For private spreadsheet you need to get google OAuth 2.0 credentials before using this module.
+Please see [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/OAuth2) page for details. In almost cases you can generate new credentials in [API console](https://console.developers.google.com/apis/credentials).
+After generating new OAuth 2.0 credential you usually have 3 credential values.
 
 1. Client ID
 2. Client Secret
 3. Redirect URN
-4. Refresh Token
 
-This module use nodejs google sdk at backend as OAuth2 client.
-So you need to give above 4 informations to constructor.
-See following private spreadsheet sample.
+And also you can get manually Oauth 2.0 refresh token optionally.
+You need to give above 3 values to the constructor of `PrivateSpreadSheet`. From v0.3.0 refresh token became to be optional.
 
 ```javascript
 var PrivateSpreadsheet = require('spreadsheet-sql').PrivateSpreadsheet;
@@ -71,7 +74,7 @@ var spreadsheet = new PrivateSpreadsheet(
   'CLIENT_ID',
   'CLIENT_SECRET',
   'REDIRECT_URN',
-  'REFRESH_TOKEN'
+  'REFRESH_TOKEN' // refresh token is optional
 );
 return spreadsheet.query('SELECT * WHERE A = "user1"')
   .then(result => {
@@ -79,11 +82,20 @@ return spreadsheet.query('SELECT * WHERE A = "user1"')
   });
 ```
 
-Deciding Columns Like RDB
+#### About Handling Expiry of Access Token and Refresh Token
+
+As we mentioned refresh token is optional from v0.3.0.
+Because `googleapis/google-auth-library-nodejs` module can handle access token expiry.
+
+So when you prefer use this module for getting spreadsheet data just only once, we recommend you to use without refresh token. Though when you need to get spreadsheet data repeatedly, you should use this module with refresh token.
+
+It means `googleapis/google-auth-library-nodejs` tries to refresh access token when the access token is over expiry. If you would like to understand in code level, please check [here](https://github.com/googleapis/google-auth-library-nodejs/blob/87fee68c607337c5cc7e4a34a8b34daca88d3aab/src/auth/oauth2client.ts#L741).
+
+Declaring Columns Like RDB
 ----
 
-This module assumes first row as columns.
-So we recommended to create following structure spreadsheet.
+This module assumes first row as headers.
+So you have to create following structure on spreadsheet.
 
 | username | last_name | first_name |
 | ---- | ---- | ---- |

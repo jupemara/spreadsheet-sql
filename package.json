@@ -1,6 +1,6 @@
 {
   "name": "spreadsheet-sql",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Get google spreadsheet data by using like SQL",
   "main": "./dist/index.js",
   "types": "./lib/Index.d.ts",
@@ -12,7 +12,9 @@
     "package-lock.json"
   ],
   "scripts": {
-    "test": "npm run build && tsc ./lib/Utils.ts && ava",
+    "test": "npm run build && ava",
+    "lint": "prettier \"{lib,test}/**/*.ts\" --check",
+    "lint+write": "prettier \"{lib,test}/**/*.ts\" --write",
     "build": "webpack --mode production && tsc -d",
     "subscribe": "npm run build && npm publish"
   },
@@ -34,17 +36,16 @@
   },
   "homepage": "https://github.com/JumpeiArashi/spreadsheet-sql#readme",
   "devDependencies": {
-    "@types/lodash": "^4.14.137",
-    "@types/request": "^2.48.2",
     "ava": "^2.3.0",
+    "prettier": "^1.18.2",
     "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
   },
   "dependencies": {
-    "googleapis": "^42.0.0",
-    "lodash": "^4.17.15",
-    "request": "^2.88.0"
+    "axios": "^0.19.0",
+    "google-auth-library": "^5.2.0"
   }
 }
