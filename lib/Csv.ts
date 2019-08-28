@@ -3,8 +3,8 @@ export class Csv {
 
   public toJson(): {[k: string]: string | number}[] {
     const headers = this.headers();
-    return this.lows().map(low => {
-      const filled = this.fillWithNull(low, headers.length);
+    return this.rows().map(row => {
+      const filled = this.fillWithNull(row, headers.length);
       let record = {};
       headers.forEach((header, idx) => {
         if (filled[idx] === '') {
@@ -26,7 +26,7 @@ export class Csv {
       });
   }
 
-  private lows(): string[][] {
+  private rows(): string[][] {
     const [, ...lines] = this.raw.split('\n');
     if (!lines.length) {
       return [];
