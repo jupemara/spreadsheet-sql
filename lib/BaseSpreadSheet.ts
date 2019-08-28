@@ -1,5 +1,5 @@
 import {Record} from './Record';
-import {csv2json} from './Utils';
+import {Csv} from './Csv';
 
 export abstract class BaseSpreadsheet {
   constructor(
@@ -16,7 +16,7 @@ export abstract class BaseSpreadsheet {
         q
       )
     ).then(res => {
-      return csv2json(res.data).map(v => v as Record);
+      return new Csv(res.data).toJson();
     });
   }
 

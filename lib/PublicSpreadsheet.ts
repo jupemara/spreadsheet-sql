@@ -1,4 +1,3 @@
-import {AxiosRequestConfig} from 'axios';
 import {BaseSpreadsheet} from './BaseSpreadSheet';
 import axios from 'axios';
 
