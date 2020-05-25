@@ -36,16 +36,16 @@
   },
   "homepage": "https://github.com/JumpeiArashi/spreadsheet-sql#readme",
   "devDependencies": {
-    "ava": "^2.3.0",
-    "prettier": "^1.18.2",
-    "ts-loader": "^6.0.4",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "ava": "^2.4.0",
+    "prettier": "^1.19.1",
+    "ts-loader": "^6.2.2",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "google-auth-library": "^5.2.0"
+    "axios": "^0.19.2",
+    "google-auth-library": "^5.10.1"
   }
 }
