@@ -24,6 +24,52 @@ Google Spreadsheet Query Language Specification
 
 You can use the syntax like SQL according to [google spreadsheet query language specification](https://developers.google.com/chart/interactive/docs/querylanguage).
 
+Breaking Changes at v1.x.x
+----
+
+In previous version we support only OAuth2.0 authentication. actual code is bellow
+
+```javascript
+// CAUTION: from 1.x.x this code does not work...
+var PrivateSpreadsheet = require('spreadsheet-sql').PrivateSpreadsheet;
+var spreadsheet = new PrivateSpreadsheet(
+  'SPREADSHEET_KEY',
+  'WORKSHEET_NAME',
+  'CLIENT_ID',
+  'CLIENT_SECRET',
+  'REDIRECT_URN',
+  'REFRESH_TOKEN',
+);
+return spreadsheet.query('SELECT * WHERE A = "user1"')
+  .then(result => {
+    console.log(result);
+  });
+```
+
+from 1.x.x `PrivateSpreadsheet` receives google auth library authentication client instead of direct OAuth2 parameters.
+
+```javascript
+var PrivateSpreadsheet = require('spreadsheet-sql').PrivateSpreadsheet;
+var Oauth2Client = require('google-auth-library').OAuth2Client;
+
+var client = new OAuth2Client(
+  'OAUTH2_CLIENT_ID',
+  'OAUTH2_CLIENT_SECRET',
+);
+client.setCredentials({
+  refresh_token: 'OAUTH2_REFRESH_TOKEN',
+});
+var spreadsheet = new PrivateSpreadsheet(
+  'SPREADSHEET_KEY',
+  'WORKSHEET_NAME',
+  client,
+);
+return spreadsheet.query('SELECT * WHERE A = "user1"')
+  .then(result => {
+    console.log(result);
+  });
+```
+
 Examples
 ----
 
@@ -63,15 +109,19 @@ It means you can use `google-auth-library.AuthClient` as `PrivateSpreadsheet`'s 
 // use default credentials case
 import { GoogleAuth } from 'google-auth-library';
 
-const auth = new GoogleAuth({
-  scopes: 'https://www.googleapis.com/auth/spreadsheets',
-});
-const client = await auth.getClient();
-const sheets = new PrivateSpreadsheet(
-  'SPREADSHEET_KEY',
-  'WORKSHEET_NAME',
-  client,
-)
+(async () => {
+  const auth = new GoogleAuth({
+    scopes: 'https://www.googleapis.com/auth/spreadsheets',
+  });
+  const client = await auth.getClient();
+  const sheets = new PrivateSpreadsheet(
+    'SPREADSHEET_KEY',
+    'WORKSHEET_NAME',
+    client,
+  );
+  const data = await sheets.query('SELECT * WHERE A = "user1"');
+  console.log(data);
+})();
 ```
 
 To understand how to use google authentication with nodejs library, please see [googleapis/google-auth-library-nodejs](https://github.com/googleapis/google-auth-library-nodejs#impersonated-credentials-client).
