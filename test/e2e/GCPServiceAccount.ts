@@ -1,17 +1,17 @@
 import test from 'ava';
-import { GoogleAuth, OAuth2Client } from 'google-auth-library';
+import { GoogleAuth } from 'google-auth-library';
 import { PrivateSpreadsheet } from '../../lib/PrivateSpreadsheet';
+import { setServiceAccountFromEnv } from '../util/ServiceAccount';
 
 test.beforeEach(async (t) => {
-  const client = new OAuth2Client(
-    process.env.GOOGLE_API_OAUTH2_CLIENT_ID,
-    process.env.GOOGLE_API_OAUTH2_CLIENT_SECRET,
-    process.env.GOOGLE_API_OAUTH2_REDIRECT_URN,
-  );
-  client.setCredentials({
-    refresh_token: process.env.GOOGLE_API_OAUTH2_REFRESH_TOKEN,
+  await setServiceAccountFromEnv();
+  const auth = new GoogleAuth({
+    keyFile: 'test/service-account.json',
+    scopes: 'https://www.googleapis.com/auth/spreadsheets',
   });
+  const client = await auth.getClient();
   t.context = {
+    client: client,
     spreadsheet: new PrivateSpreadsheet(
       process.env.TEST_SPREADSHEET_KEY,
       'test',
@@ -48,14 +48,10 @@ test('PrivateSpreadsheet.query with query = "SELECT * WHERE A = "null-url-user""
 });
 
 test('PrivateSpreadsheet.query when using second worksheet with query = "SELECT * WHERE A = spreadsheet-sql-private001", it returns one result object', async (t) => {
-  const auth = new GoogleAuth({
-    scopes: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-  });
-  const client = await auth.getClient();
   const spreadsheet = new PrivateSpreadsheet(
     process.env.TEST_SPREADSHEET_KEY,
     'test002',
-    client,
+    t.context['client'],
   );
   const result = await spreadsheet.query(
     'SELECT * WHERE A = "spreadsheet-sql-private001"',
