@@ -46,7 +46,7 @@
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
-    "axios": "^0.22.0",
+    "axios": "^0.21.2",
     "google-auth-library": "^7.10.0"
   }
 }
