@@ -57,7 +57,7 @@ Executing above snippet, you can get json format result.
 For private spreadsheet access, you need to get google authentication.
 You can use any google authentication method. GCP service account, OAuth2.0, Workload Identity Federation, etc. 
 It means you can use `google-auth-library.AuthClient` as `PrivateSpreadsheet`'s argument.
-(in previouse version we support only [OAuth2.0](https://developers.google.com/identity/protocols/OAuth2).)
+(in previous our version we support only [OAuth2.0](https://developers.google.com/identity/protocols/OAuth2).)
 
 ```TypeScript
 // use default credentials case
@@ -76,11 +76,11 @@ const sheets = new PrivateSpreadsheet(
 
 To understand how to use google authentication with nodejs library, please see [googleapis/google-auth-library-nodejs](https://github.com/googleapis/google-auth-library-nodejs#impersonated-credentials-client).
 
-Declaring Columns Like RDB
+Defining Columns Like RDB
 ----
 
-This module assumes first row as headers.
-So you have to create following structure on spreadsheet.
+This module assumes the first row as headers.
+You have to create a following structure on spreadsheet.
 
 | username | last_name | first_name |
 | ---- | ---- | ---- |
