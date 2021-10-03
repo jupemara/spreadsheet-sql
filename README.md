@@ -54,42 +54,27 @@ Executing above snippet, you can get json format result.
 
 ### Private Spreadsheet
 
-For private spreadsheet you need to get google OAuth 2.0 credentials before using this module.
-Please see [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/OAuth2) page for details. In almost cases you can generate new credentials in [API console](https://console.developers.google.com/apis/credentials).
-After generating new OAuth 2.0 credential you usually have 3 credential values.
+For private spreadsheet access, you need to get google authentication.
+You can use any google authentication method. GCP service account, OAuth2.0, Workload Identity Federation, etc. 
+It means you can use `google-auth-library.AuthClient` as `PrivateSpreadsheet`'s argument.
+(in previouse version we support only [OAuth2.0](https://developers.google.com/identity/protocols/OAuth2).)
 
-1. Client ID
-2. Client Secret
-3. Redirect URN
+```TypeScript
+// use default credentials case
+import { GoogleAuth } from 'google-auth-library';
 
-And also you can get manually Oauth 2.0 refresh token optionally.
-You need to give above 3 values to the constructor of `PrivateSpreadSheet`. From v0.3.0 refresh token became to be optional.
-
-```javascript
-var PrivateSpreadsheet = require('spreadsheet-sql').PrivateSpreadsheet;
-
-var spreadsheet = new PrivateSpreadsheet(
+const auth = new GoogleAuth({
+  scopes: 'https://www.googleapis.com/auth/spreadsheets',
+});
+const client = await auth.getClient();
+const sheets = new PrivateSpreadsheet(
   'SPREADSHEET_KEY',
   'WORKSHEET_NAME',
-  'CLIENT_ID',
-  'CLIENT_SECRET',
-  'REDIRECT_URN',
-  'REFRESH_TOKEN' // refresh token is optional
-);
-return spreadsheet.query('SELECT * WHERE A = "user1"')
-  .then(result => {
-    console.log(result);
-  });
+  client,
+)
 ```
 
-#### About Handling Expiry of Access Token and Refresh Token
-
-As we mentioned refresh token is optional from v0.3.0.
-Because `googleapis/google-auth-library-nodejs` module can handle access token expiry.
-
-So when you prefer use this module for getting spreadsheet data just only once, we recommend you to use without refresh token. Though when you need to get spreadsheet data repeatedly, you should use this module with refresh token.
-
-It means `googleapis/google-auth-library-nodejs` tries to refresh access token when the access token is over expiry. If you would like to understand in code level, please check [here](https://github.com/googleapis/google-auth-library-nodejs/blob/87fee68c607337c5cc7e4a34a8b34daca88d3aab/src/auth/oauth2client.ts#L741).
+To understand how to use google authentication with nodejs library, please see [googleapis/google-auth-library-nodejs](https://github.com/googleapis/google-auth-library-nodejs#impersonated-credentials-client).
 
 Declaring Columns Like RDB
 ----
