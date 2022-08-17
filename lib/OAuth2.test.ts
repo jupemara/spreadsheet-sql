@@ -13,7 +13,7 @@ describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
       refresh_token: process.env.GOOGLE_API_OAUTH2_REFRESH_TOKEN,
     });
     sheet = new PrivateSpreadsheet(
-      process.env.TEST_SPREADSHEET_KEY ?? '',
+      process.env.TEST_SPREADSHEET_KEY || '',
       'test',
       client
     );
@@ -49,7 +49,7 @@ describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
 
   test('when using second worksheet with query = "SELECT * WHERE A = spreadsheet-sql-private001", it returns one result object', async () => {
     const result = await new PrivateSpreadsheet(
-      process.env.TEST_SPREADSHEET_KEY ?? '',
+      process.env.TEST_SPREADSHEET_KEY || '',
       'test002',
       client
     ).query('SELECT * WHERE A = "spreadsheet-sql-private001"');

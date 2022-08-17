@@ -9,7 +9,7 @@ describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
     const key = '__key.json';
     await fs.promises.writeFile(
       key,
-      process.env['SPREADSHEET_SQL_SERVICE_ACCOUNT'] ?? ''
+      process.env['SPREADSHEET_SQL_SERVICE_ACCOUNT'] || ''
     );
     const auth = new GoogleAuth({
       keyFile: key,
@@ -17,7 +17,7 @@ describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
     });
     client = await auth.getClient();
     sheet = new PrivateSpreadsheet(
-      process.env.TEST_SPREADSHEET_KEY ?? '',
+      process.env.TEST_SPREADSHEET_KEY || '',
       'test',
       client
     );
@@ -53,7 +53,7 @@ describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
 
   test('when using second worksheet with query = "SELECT * WHERE A = spreadsheet-sql-private001", it returns one result object', async () => {
     const result = await new PrivateSpreadsheet(
-      process.env.TEST_SPREADSHEET_KEY ?? '',
+      process.env.TEST_SPREADSHEET_KEY || '',
       'test002',
       client
     ).query('SELECT * WHERE A = "spreadsheet-sql-private001"');
