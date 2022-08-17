@@ -12,7 +12,7 @@
     "package-lock.json"
   ],
   "scripts": {
-    "test": "npm run build && ava test/e2e/*.ts test/spec/*.ts",
+    "test": "npm run build && jest",
     "lint": "prettier \"{lib,test}/**/*.ts\" --check",
     "lint+write": "prettier \"{lib,test}/**/*.ts\" --write",
     "build": "webpack --mode production && tsc -d",
