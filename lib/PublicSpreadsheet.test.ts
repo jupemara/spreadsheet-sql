@@ -1,3 +1,5 @@
+jest.setTimeout(10000);
+
 import {PublicSpreadsheet} from './PublicSpreadsheet';
 
 let sheet;
