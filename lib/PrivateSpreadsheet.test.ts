@@ -4,7 +4,7 @@ import fs from 'fs';
 
 let sheet, client;
 
-describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
+describe.skip('PrivateSpreadsheet.query with Google Cloud service account', () => {
   beforeAll(async () => {
     const key = '__key.json';
     await fs.promises.writeFile(

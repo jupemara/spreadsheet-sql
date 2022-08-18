@@ -3,7 +3,7 @@ import {PrivateSpreadsheet} from './PrivateSpreadsheet';
 
 let sheet, client;
 
-describe('PrivateSpreadsheet.query with Google Cloud service account', () => {
+describe.skip('PrivateSpreadsheet.query with Google Cloud service account', () => {
   beforeAll(async () => {
     client = new OAuth2Client(
       process.env.GOOGLE_API_OAUTH2_CLIENT_ID,
